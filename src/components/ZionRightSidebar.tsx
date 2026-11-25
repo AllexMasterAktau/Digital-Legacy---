@@ -24,6 +24,8 @@ const MY_NODES: NodeItem[] = [
   { id: 'ZION_W01', count: 4, status: 'Активна' },
 ];
 
+const getNodeDisplayName = (index: number): string => `Моя нода ${index + 1}`;
+
 export const ZionRightSidebar: React.FC = () => {
   const [now, setNow] = useState<Date>(() => new Date());
   const [searchGroup, setSearchGroup] = useState('');
@@ -46,8 +48,14 @@ export const ZionRightSidebar: React.FC = () => {
   const capitalizedDate =
     formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
-  const filteredNodes = MY_NODES.filter((node) =>
-    node.id.toLowerCase().includes(searchGroup.trim().toLowerCase())
+  const normalizedQuery = searchGroup.trim().toLowerCase();
+  const filteredNodes = MY_NODES.map((node, index) => ({
+    ...node,
+    displayName: getNodeDisplayName(index),
+  })).filter(
+    (node) =>
+      node.displayName.toLowerCase().includes(normalizedQuery) ||
+      node.id.toLowerCase().includes(normalizedQuery)
   );
 
   const handleRefreshRates = () => {
@@ -201,7 +209,7 @@ export const ZionRightSidebar: React.FC = () => {
                   >
                     <span className="flex items-center gap-2 font-medium">
                       <span className="w-2 h-2 rounded-full border border-[#D97706] bg-[#FEF3C7]" />
-                      <span className="font-mono-tabular text-[11.5px]">{node.id}</span>
+                      <span className="text-[12px]">{node.displayName}</span>
                     </span>
                     <span className="flex items-center gap-1 text-[11px] text-[#9A8F80] tabular-nums">
                       <span>({node.count})</span>
