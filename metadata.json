@@ -1,0 +1,6 @@
+{
+  "name": "ZION.CITY — Цифровое наследие (Digital Legacy)",
+  "description": "Электронное распоряжение о цифровом наследии участника экосистемы ZION.CITY",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
